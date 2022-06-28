@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JANKENPON</title>
+    <link rel="icon" type="image/jpg" href="/images/icon.png">
+    <script src="https://kit.fontawesome.com/9d27288bb7.js" crossorigin="anonymous"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+</head>
+<style>
+    /* Google Font */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Pacifico&display=swap');
+
+    /* CSS */
+    .logo {
+            font-family: 'Pacifico', cursive;
+            color: rgb(255, 255, 255);
+        }
+    </style>
+<body>
+   <!-- Navbar -->
+   <nav class="navbar navbar-expand-lg bg-primary shadow p-3 mb-5 rounded">
+    <div class="container-fluid">
+      <a class="navbar-brand logo" href="#">JANKENPON</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="about.html">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- End Navbar -->
+    <div class="container">
+        <div class="text-center">
+            <div class="summary">
+                <h1 class="title">Hasil Pertandingan</h1>
+                <br />
+                <h1 id="inGame"></h1>
+                <h3 id="result"></h3>
+            </div>
+            <div class="games">
+                <p>Pilih Pilihanmu</p>
+                <div id="carouselExampleControls" class="carousel slide btn-lg" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <a class="btn btn-outline-primary btn-lg" style="font-size:100px;" onclick="pickOption('🖐')"><i class="fa-solid fa-hand"></i></a>
+                      </div>
+                      <div class="carousel-item">
+                        <a class="btn btn-outline-primary btn-lg" style="font-size:100px;" onclick="pickOption('✌')"><i class="fa-solid fa-hand-scissors"></i></a>
+                      </div>
+                      <div class="carousel-item">
+                        <a class="btn btn-outline-primary btn-lg" style="font-size:100px;" onclick="pickOption('✊')"><i class="fa-solid fa-hand-back-fist"></i></a>
+                      </div>
+                    </div>
+                    <br>
+                    <button class="btn btn-primary" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="btn btn-primary" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-light text-center text-lg-start fixed-bottom">
+      <div class="text-center text-white p-3 bg-primary">
+        © 2022 Copyright By
+        <a class="text-white" href="https://ikyyilham.github.io/">Ilham Wahyudin</a>
+      </div>
+    </footer>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<!-- Game Script -->
+<script>
+    class Start {
+        constructor() {
+            this.playerName = "Kamu"
+            this.botName = "Lawanmu"
+            this.playerOption;
+            this.botOption;
+            this.winner = ""
+        }
+
+        get getBotOption() {
+            return this.botOption;
+        }
+
+        set setBotOption(option) {
+            this.botOption = option;
+        }
+
+        get getPlayerOption() {
+            return this.playerOption
+        }
+
+        set setPlayerOption(option) {
+            this.playerOption = option;
+        }
+
+        botBrain() {
+            const option = ["🖐", "✌", "✊"];
+            const bot = option[Math.floor(Math.random() * option.length)];
+            return bot;
+        }
+
+        winCalculation() {
+            if (this.botOption == "🖐" && this.playerOption == "✌") {
+                return this.winner = this.playerName
+            } else if (this.botOption == "🖐" && this.playerOption == "✊") {
+                return this.winner = this.botName;
+            } else if (this.botOption == "✌" && this.playerOption == "🖐") {
+                return this.winner = this.botName;
+            } else if (this.botOption == "✌" && this.playerOption == "✊") {
+                return this.winner = this.playerName
+            } else if (this.botOption == "✊" && this.playerOption == "🖐") {
+                return this.winner = this.playerName
+            } else if (this.botOption == "✊" && this.playerOption == "✌") {
+                return this.winner = this.botName;
+            } else {
+                return this.winner = "seri"
+            }
+        }
+
+        matchResult() {
+            if (this.winner != "seri") {
+                return `${this.winner} menang!`;
+            } else {
+                return `Hahaha skorenya ${this.winner}, ayo coba lagi!`;
+            }
+        }
+    }
+
+    function pickOption(params) {
+        const start = new Start();
+        start.setPlayerOption = params;
+        start.setBotOption = start.botBrain();
+        start.winCalculation();
+
+        const inGame = document.getElementById("inGame");
+        const result = document.getElementById("result");
+
+        inGame.textContent = "..."
+        result.textContent = "..."
+
+        setTimeout(() => {
+            inGame.textContent = `${start.getPlayerOption} VS ${start.getBotOption}`
+            result.textContent = start.matchResult();
+        }, 1500);
+
+    }
+</script>
+</body>
+</html>
